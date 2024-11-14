@@ -3,5 +3,11 @@ package utils
 import "runtime"
 
 func GetOS() string {
-	return runtime.GOOS
+	os := runtime.GOOS
+
+	if os != "linux" {
+		return os
+	}
+
+	return "TODO"
 }
