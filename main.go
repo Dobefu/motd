@@ -6,7 +6,6 @@ import (
 	"motd/structs"
 	"motd/utils"
 	"strings"
-	"unicode/utf8"
 
 	"github.com/common-nighthawk/go-figure"
 	"github.com/fatih/color"
@@ -40,19 +39,25 @@ func main() {
 		line := ""
 
 		if len(icon_lines) > index {
-			line_raw += icon_lines[index] + " "
+			val := []rune(icon_lines[index] + " ")
+
+			if len(val) > term_width {
+				val = val[:term_width]
+			}
+
+			line_raw += string(val)
 			line += color.RGB(
 				icon_color.R,
 				icon_color.G,
 				icon_color.B,
-			).Sprint(icon_lines[index]) + " "
+			).Sprint(string(val))
 		}
 
 		if len(lines) > index {
 			val := lines[index]
 
-			if len(val) > term_width-utf8.RuneCountInString(line_raw) {
-				limit := term_width - utf8.RuneCountInString(line_raw)
+			if len(val) > term_width-len([]rune(line_raw)) {
+				limit := term_width - len([]rune(line_raw))
 
 				if limit < 0 {
 					limit = 0
