@@ -6,9 +6,11 @@ import (
 	"motd/structs"
 	"motd/utils"
 	"strings"
+	"unicode/utf8"
 
 	"github.com/common-nighthawk/go-figure"
 	"github.com/fatih/color"
+	"golang.org/x/term"
 )
 
 func main() {
@@ -17,7 +19,6 @@ func main() {
 	}
 
 	info := formatLines(info_struct)
-
 	info = figure.NewFigure(utils.GetUsername(), "doom", false).String() + "\n" + info
 
 	lines := strings.Split(info, "\n")
@@ -28,9 +29,19 @@ func main() {
 	line_count := math.MaxInt(len(lines), len(icon_lines))
 	output := ""
 
+	term_width, _, err := term.GetSize(0)
+
+	if err != nil {
+		term_width = 999
+	}
+
 	for index := range line_count {
+		line_raw := ""
+		line := ""
+
 		if len(icon_lines) > index {
-			output += color.RGB(
+			line_raw += icon_lines[index] + " "
+			line += color.RGB(
 				icon_color.R,
 				icon_color.G,
 				icon_color.B,
@@ -38,10 +49,26 @@ func main() {
 		}
 
 		if len(lines) > index {
-			output += color.WhiteString(lines[index])
+			val := lines[index]
+
+			if len(val) > term_width-utf8.RuneCountInString(line_raw) {
+				limit := term_width - utf8.RuneCountInString(line_raw)
+
+				if limit < 0 {
+					limit = 0
+				}
+
+				val = val[:limit]
+			}
+
+			line_raw += val
+			line += color.WhiteString(val)
+
 		}
 
-		output += "\n"
+		line += "\n"
+
+		output += line
 	}
 
 	fmt.Print(output)
