@@ -2,8 +2,12 @@ package main
 
 import (
 	"fmt"
+	"motd/math"
 	"motd/structs"
 	"motd/utils"
+	"strings"
+
+	"github.com/fatih/color"
 )
 
 func main() {
@@ -13,13 +17,29 @@ func main() {
 
 	formatLines(lines)
 
-	for _, line := range lines {
-		fmt.Print(line.Name)
-		fmt.Println(line.Value)
+	icon, icon_color := utils.GetIcon(utils.GetOS())
+	icon_lines := strings.Split(icon, "\n")
+
+	line_count := math.MaxInt(len(lines), len(icon_lines))
+	output := ""
+
+	for index := range line_count {
+		if len(icon_lines) > index {
+			output += color.RGB(
+				icon_color.R,
+				icon_color.G,
+				icon_color.B,
+			).Sprint(icon_lines[index])
+		}
+
+		if len(lines) > index {
+			output += color.WhiteString(lines[index].Name + lines[index].Value)
+		}
+
+		output += "\n"
 	}
 
-	icon := utils.GetIcon(utils.GetOS())
-	fmt.Printf(icon)
+	fmt.Print(output)
 }
 
 func formatLines(lines []structs.Line) {

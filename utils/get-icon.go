@@ -2,13 +2,14 @@ package utils
 
 import (
 	"motd/icons"
+	"motd/structs"
 )
 
-func GetIcon(os string) string {
+func GetIcon(os string) (string, structs.RGB) {
 	switch os {
 	case "darwin":
 		return icons.IconApple()
 	default:
-		return ""
+		return "", structs.RGB{255, 255, 255}
 	}
 }

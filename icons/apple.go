@@ -1,13 +1,12 @@
 package icons
 
 import (
+	"motd/structs"
 	"strings"
-
-	"github.com/fatih/color"
 )
 
-func IconApple() string {
-	return color.HiCyanString(strings.Trim(`
+func IconApple() (string, structs.RGB) {
+	return strings.Trim(`
  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⠀⠀⠀⠀⠀⠀
  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⡿⠀⠀⠀⠀⠀⠀
  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⣿⠟⠁⠀⠀⠀⠀⠀⠀
@@ -20,5 +19,5 @@ func IconApple() string {
  ⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁
  ⠀⠀⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠁⠀
  ⠀⠀⠀⠈⠙⢿⣿⣿⣿⠿⠟⠛⠻⠿⣿⣿⣿⡿⠋   
-`, "\r\n"))
+`, "\r\n"), structs.RGB{64, 192, 255}
 }
