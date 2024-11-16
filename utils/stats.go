@@ -7,7 +7,7 @@ import (
 	"regexp"
 )
 
-func GetOsVersion() (string, error) {
+func GetOsVersion() string {
 	os := GetOS()
 
 	switch os {
@@ -18,24 +18,24 @@ func GetOsVersion() (string, error) {
 		err := cmd.Run()
 
 		if err != nil {
-			return "", err
+			return "Unknown OS version"
 		}
 
 		regex, err := regexp.Compile("ProductVersion:\t+(.*)")
 
 		if err != nil {
-			return "", err
+			return "Unknown OS version"
 		}
 
 		version_match := regex.FindStringSubmatch(stdout.String())
 
 		if len(version_match) < 2 {
-			return "MacOS", nil
+			return "MacOS"
 		}
 
-		return fmt.Sprintf("MacOS %s", version_match[1]), nil
+		return fmt.Sprintf("MacOS %s", version_match[1])
 	default:
-		return os, nil
+		return os
 	}
 
 }
