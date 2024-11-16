@@ -7,6 +7,7 @@ import (
 	"motd/utils"
 	"strings"
 
+	"github.com/common-nighthawk/go-figure"
 	"github.com/fatih/color"
 )
 
@@ -16,6 +17,9 @@ func main() {
 	}
 
 	info := formatLines(info_struct)
+
+	info = figure.NewFigure(utils.GetUsername(), "doom", false).String() + "\n" + info
+
 	lines := strings.Split(info, "\n")
 
 	icon, icon_color := utils.GetIcon(utils.GetOS())
@@ -30,7 +34,7 @@ func main() {
 				icon_color.R,
 				icon_color.G,
 				icon_color.B,
-			).Sprint(icon_lines[index])
+			).Sprint(icon_lines[index]) + " "
 		}
 
 		if len(lines) > index {
