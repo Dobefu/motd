@@ -11,11 +11,12 @@ import (
 )
 
 func main() {
-	lines := []structs.Line{
+	info_struct := []structs.Line{
 		{Name: "OS", Value: utils.GetOsVersion()},
 	}
 
-	formatLines(lines)
+	info := formatLines(info_struct)
+	lines := strings.Split(info, "\n")
 
 	icon, icon_color := utils.GetIcon(utils.GetOS())
 	icon_lines := strings.Split(icon, "\n")
@@ -33,7 +34,7 @@ func main() {
 		}
 
 		if len(lines) > index {
-			output += color.WhiteString(lines[index].Name + lines[index].Value)
+			output += color.WhiteString(lines[index])
 		}
 
 		output += "\n"
@@ -42,7 +43,8 @@ func main() {
 	fmt.Print(output)
 }
 
-func formatLines(lines []structs.Line) {
+func formatLines(lines []structs.Line) string {
+	output := ""
 	longest_name_length := 0
 
 	for _, line := range lines {
@@ -51,13 +53,17 @@ func formatLines(lines []structs.Line) {
 		}
 	}
 
-	for index, line := range lines {
+	for _, line := range lines {
+		output += line.Name + ":"
 		spaces := longest_name_length - len(line.Name) + 1
-		lines[index].Name += ":"
 
 		for spaces > 0 {
-			lines[index].Name += " "
+			output += " "
 			spaces -= 1
 		}
+
+		output += line.Value + "\n"
 	}
+
+	return output
 }
