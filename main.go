@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"motd/math"
 	"motd/structs"
@@ -12,13 +13,15 @@ import (
 )
 
 func main() {
+	parseFlags()
+
 	info_struct := []structs.Line{
 		{Name: "OS", Value: utils.GetOsVersion()},
 		{Name: "CPU", Value: utils.GetCpu()},
 		{Name: "Uptime", Value: utils.GetUptime()},
 		{Name: "Terminal", Value: utils.GetTerminal()},
 		{Name: "Root", Value: utils.GetDiskUsage("/")},
-		{Name: "shell", Value: utils.GetShell()},
+		{Name: "Shell", Value: utils.GetShell()},
 	}
 
 	username := color.GreenString(utils.GetUsername()) + "@" + color.GreenString(utils.GetHostname())
@@ -96,6 +99,16 @@ func main() {
 	}
 
 	fmt.Print(output)
+}
+
+func parseFlags() {
+	no_colour := flag.Bool("no-color", false, "Disable color output")
+
+	flag.Parse()
+
+	if *no_colour {
+		color.NoColor = true
+	}
 }
 
 func formatLines(lines []structs.Line) string {
