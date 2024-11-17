@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"motd/utils"
 	"testing"
 )
 
@@ -35,12 +34,12 @@ func TestDuration(t *testing.T) {
 	}
 
 	for _, time := range times {
-		if utils.Duration(time.ts) != time.output {
+		if Duration(time.ts) != time.output {
 			t.Fatalf(
 				"Expected %d to match \"%s\", got \"%s\"",
 				int(time.ts),
 				time.output,
-				utils.Duration(time.ts),
+				Duration(time.ts),
 			)
 		}
 	}
