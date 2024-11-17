@@ -7,7 +7,6 @@ import (
 	"motd/utils"
 	"strings"
 
-	"github.com/common-nighthawk/go-figure"
 	"github.com/fatih/color"
 	"golang.org/x/term"
 )
@@ -22,8 +21,12 @@ func main() {
 		{Name: "shell", Value: utils.GetShell()},
 	}
 
+	username := color.GreenString(utils.GetUsername()) + "@" + color.GreenString(utils.GetHostname())
+	username_length := len(utils.GetUsername()) + len(utils.GetHostname()) + 1
+	separator := color.RGB(128, 128, 128).Sprint(strings.Repeat("-", username_length))
+
 	info := formatLines(info_struct)
-	info = figure.NewFigure(utils.GetUsername(), "doom", false).String() + info
+	info = "\n" + username + "\n" + separator + "\n" + info
 
 	lines := strings.Split(info, "\n")
 
