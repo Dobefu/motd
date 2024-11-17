@@ -17,6 +17,7 @@ func main() {
 		{Name: "OS", Value: utils.GetOsVersion()},
 		{Name: "CPU", Value: utils.GetCpu()},
 		{Name: "Uptime", Value: utils.GetUptime()},
+		{Name: "Terminal", Value: utils.GetTerminal()},
 	}
 
 	info := formatLines(info_struct)
