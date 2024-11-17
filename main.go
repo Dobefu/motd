@@ -81,7 +81,7 @@ func main() {
 			if len(val_parts) > 1 {
 				val = fmt.Sprintf(
 					"%s %s",
-					color.New(color.Bold).Sprintf("%s:", val_parts[0]),
+					color.New(color.Bold, color.FgHiBlack).Sprintf("%s:", val_parts[0]),
 					val_parts[1],
 				)
 			}
