@@ -15,6 +15,7 @@ import (
 func main() {
 	info_struct := []structs.Line{
 		{Name: "OS", Value: utils.GetOsVersion()},
+		{Name: "CPU", Value: utils.GetCpu()},
 	}
 
 	info := formatLines(info_struct)
