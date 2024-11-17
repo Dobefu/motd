@@ -18,6 +18,7 @@ func main() {
 		{Name: "CPU", Value: utils.GetCpu()},
 		{Name: "Uptime", Value: utils.GetUptime()},
 		{Name: "Terminal", Value: utils.GetTerminal()},
+		{Name: "Root", Value: utils.GetDiskUsage("/")},
 	}
 
 	info := formatLines(info_struct)
