@@ -19,10 +19,11 @@ func main() {
 		{Name: "Uptime", Value: utils.GetUptime()},
 		{Name: "Terminal", Value: utils.GetTerminal()},
 		{Name: "Root", Value: utils.GetDiskUsage("/")},
+		{Name: "shell", Value: utils.GetShell()},
 	}
 
 	info := formatLines(info_struct)
-	info = figure.NewFigure(utils.GetUsername(), "doom", false).String() + "\n" + info
+	info = figure.NewFigure(utils.GetUsername(), "doom", false).String() + info
 
 	lines := strings.Split(info, "\n")
 
