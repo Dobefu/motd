@@ -69,6 +69,17 @@ func main() {
 			}
 
 			line_raw += val
+
+			val_parts := strings.Split(val, ": ")
+
+			if len(val_parts) > 1 {
+				val = fmt.Sprintf(
+					"%s %s",
+					color.New(color.Bold).Sprintf("%s:", val_parts[0]),
+					val_parts[1],
+				)
+			}
+
 			line += color.WhiteString(val)
 
 		}
