@@ -15,7 +15,7 @@ import (
 func main() {
 	parseFlags()
 
-	info_struct := []structs.Line{
+	infoStruct := []structs.Line{
 		{Name: "OS", Value: utils.GetOsVersion()},
 		{Name: "CPU", Value: utils.GetCpu()},
 		{Name: "Uptime", Value: utils.GetUptime()},
@@ -25,50 +25,50 @@ func main() {
 	}
 
 	username := color.GreenString(utils.GetUsername()) + "@" + color.GreenString(utils.GetHostname())
-	username_length := len([]rune(utils.StripAnsi(username)))
-	separator := color.RGB(128, 128, 128).Sprint(strings.Repeat("-", username_length))
+	usernameLength := len([]rune(utils.StripAnsi(username)))
+	separator := color.RGB(128, 128, 128).Sprint(strings.Repeat("-", usernameLength))
 
-	info := formatLines(info_struct)
+	info := formatLines(infoStruct)
 	info = "\n" + username + "\n" + separator + "\n" + info
 
 	lines := strings.Split(info, "\n")
 
-	icon, icon_color := utils.GetIcon(utils.GetOS())
-	icon_lines := strings.Split(icon, "\n")
+	icon, iconColor := utils.GetIcon(utils.GetOS())
+	iconLines := strings.Split(icon, "\n")
 
-	line_count := math.MaxInt(len(lines), len(icon_lines))
+	lineCount := math.MaxInt(len(lines), len(iconLines))
 	output := ""
 
-	term_width, _, err := term.GetSize(0)
+	termWidth, _, err := term.GetSize(0)
 
 	if err != nil {
-		term_width = 999
+		termWidth = 999
 	}
 
-	for index := range line_count {
+	for index := range lineCount {
 		line := ""
 
-		if len(icon_lines) > index {
-			val := []rune(icon_lines[index] + " ")
-			val_raw := []rune(utils.StripAnsi(icon_lines[index] + " "))
+		if len(iconLines) > index {
+			val := []rune(iconLines[index] + " ")
+			valRaw := []rune(utils.StripAnsi(iconLines[index] + " "))
 
-			if len(val_raw) > term_width {
-				val = val[:term_width]
+			if len(valRaw) > termWidth {
+				val = val[:termWidth]
 			}
 
 			line += color.RGB(
-				icon_color.R,
-				icon_color.G,
-				icon_color.B,
+				iconColor.R,
+				iconColor.G,
+				iconColor.B,
 			).Sprint(string(val))
 		}
 
 		if len(lines) > index {
 			val := lines[index]
-			line_raw := []rune(utils.StripAnsi(line))
+			lineRaw := []rune(utils.StripAnsi(line))
 
-			if len(val) > term_width-len(line_raw) {
-				limit := term_width - len(line_raw)
+			if len(val) > termWidth-len(lineRaw) {
+				limit := termWidth - len(lineRaw)
 
 				if limit < 0 {
 					limit = 0
@@ -77,13 +77,13 @@ func main() {
 				val = val[:limit]
 			}
 
-			val_parts := strings.Split(val, ": ")
+			valParts := strings.Split(val, ": ")
 
-			if len(val_parts) > 1 {
+			if len(valParts) > 1 {
 				val = fmt.Sprintf(
 					"%s %s",
-					color.New(color.Bold, color.FgHiBlack).Sprintf("%s:", val_parts[0]),
-					val_parts[1],
+					color.New(color.Bold, color.FgHiBlack).Sprintf("%s:", valParts[0]),
+					valParts[1],
 				)
 			}
 
@@ -99,28 +99,28 @@ func main() {
 }
 
 func parseFlags() {
-	no_colour := flag.Bool("no-color", false, "Disable color output")
+	noColour := flag.Bool("no-color", false, "Disable color output")
 
 	flag.Parse()
 
-	if *no_colour {
+	if *noColour {
 		color.NoColor = true
 	}
 }
 
 func formatLines(lines []structs.Line) string {
 	output := ""
-	longest_name_length := 0
+	longestNameLength := 0
 
 	for _, line := range lines {
-		if len(line.Name) > longest_name_length {
-			longest_name_length = len(line.Name)
+		if len(line.Name) > longestNameLength {
+			longestNameLength = len(line.Name)
 		}
 	}
 
 	for _, line := range lines {
 		output += line.Name + ":"
-		spaces := longest_name_length - len(line.Name) + 1
+		spaces := longestNameLength - len(line.Name) + 1
 
 		for spaces > 0 {
 			output += " "
