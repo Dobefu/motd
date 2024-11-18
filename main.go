@@ -25,7 +25,7 @@ func main() {
 	}
 
 	username := color.GreenString(utils.GetUsername()) + "@" + color.GreenString(utils.GetHostname())
-	username_length := len(utils.GetUsername()) + len(utils.GetHostname()) + 1
+	username_length := len([]rune(utils.StripAnsi(username)))
 	separator := color.RGB(128, 128, 128).Sprint(strings.Repeat("-", username_length))
 
 	info := formatLines(info_struct)
@@ -46,17 +46,16 @@ func main() {
 	}
 
 	for index := range line_count {
-		line_raw := ""
 		line := ""
 
 		if len(icon_lines) > index {
 			val := []rune(icon_lines[index] + " ")
+			val_raw := []rune(utils.StripAnsi(icon_lines[index] + " "))
 
-			if len(val) > term_width {
+			if len(val_raw) > term_width {
 				val = val[:term_width]
 			}
 
-			line_raw += string(val)
 			line += color.RGB(
 				icon_color.R,
 				icon_color.G,
@@ -66,9 +65,10 @@ func main() {
 
 		if len(lines) > index {
 			val := lines[index]
+			line_raw := []rune(utils.StripAnsi(line))
 
-			if len(val) > term_width-len([]rune(line_raw)) {
-				limit := term_width - len([]rune(line_raw))
+			if len(val) > term_width-len(line_raw) {
+				limit := term_width - len(line_raw)
 
 				if limit < 0 {
 					limit = 0
@@ -76,8 +76,6 @@ func main() {
 
 				val = val[:limit]
 			}
-
-			line_raw += val
 
 			val_parts := strings.Split(val, ": ")
 
@@ -90,7 +88,6 @@ func main() {
 			}
 
 			line += color.WhiteString(val)
-
 		}
 
 		line += "\n"
