@@ -6,8 +6,12 @@ func FormatBytes(bytes int) string {
 	newBytes := float64(bytes)
 	iteration := 0
 
+	if bytes == 1 {
+		return "1 byte"
+	}
+
 	units := []string{
-		"bytes",
+		" bytes",
 		"KiB",
 		"MiB",
 		"GiB",
@@ -16,7 +20,7 @@ func FormatBytes(bytes int) string {
 		"EiB",
 	}
 
-	for newBytes > 1024 {
+	for newBytes >= 1024 {
 		iteration += 1
 		newBytes = newBytes / 1024
 	}
