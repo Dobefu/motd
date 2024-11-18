@@ -5,8 +5,8 @@ import (
 )
 
 func TestDuration(t *testing.T) {
-	times := []struct {
-		ts     float64
+	assertions := []struct {
+		input  float64
 		output string
 	}{
 		{1, "1 second"},
@@ -33,13 +33,13 @@ func TestDuration(t *testing.T) {
 		{86462, "1 day 1 minute 2 seconds"},
 	}
 
-	for _, time := range times {
-		if Duration(time.ts) != time.output {
+	for _, assertion := range assertions {
+		if Duration(assertion.input) != assertion.output {
 			t.Fatalf(
 				"Expected %d to match \"%s\", got \"%s\"",
-				int(time.ts),
-				time.output,
-				Duration(time.ts),
+				int(assertion.input),
+				assertion.output,
+				Duration(assertion.input),
 			)
 		}
 	}
