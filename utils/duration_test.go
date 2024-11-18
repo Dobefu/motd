@@ -34,12 +34,14 @@ func TestDuration(t *testing.T) {
 	}
 
 	for _, assertion := range assertions {
-		if Duration(assertion.input) != assertion.output {
+		result := Duration(assertion.input)
+
+		if result != assertion.output {
 			t.Fatalf(
 				"Expected %d to match \"%s\", got \"%s\"",
 				int(assertion.input),
 				assertion.output,
-				Duration(assertion.input),
+				result,
 			)
 		}
 	}
