@@ -27,13 +27,13 @@ func GetOsVersion() string {
 			return "Unknown OS version"
 		}
 
-		version_match := regex.FindStringSubmatch(stdout.String())
+		versionMatch := regex.FindStringSubmatch(stdout.String())
 
-		if len(version_match) < 2 {
+		if len(versionMatch) < 2 {
 			return "MacOS"
 		}
 
-		return fmt.Sprintf("MacOS %s", version_match[1])
+		return fmt.Sprintf("MacOS %s", versionMatch[1])
 	default:
 		return os
 	}
