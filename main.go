@@ -69,11 +69,6 @@ func main() {
 
 			if len(val) > termWidth-len(lineRaw) {
 				limit := math.MaxInt(0, (termWidth - len(lineRaw)))
-
-				if limit < 0 {
-					limit = 0
-				}
-
 				val = val[:limit]
 			}
 
