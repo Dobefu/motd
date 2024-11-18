@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"os"
 	"os/exec"
+	"strings"
 )
 
 func GetShell() string {
@@ -18,5 +19,5 @@ func GetShell() string {
 		return "Unknown shell"
 	}
 
-	return stdout.String()
+	return strings.Trim(stdout.String(), "\n")
 }

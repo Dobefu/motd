@@ -20,8 +20,8 @@ func main() {
 		{Name: "CPU", Value: utils.GetCpu()},
 		{Name: "Uptime", Value: utils.GetUptime()},
 		{Name: "Terminal", Value: utils.GetTerminal()},
-		{Name: "Root", Value: utils.GetDiskUsage("/")},
 		{Name: "Shell", Value: utils.GetShell()},
+		{Name: "Root", Value: utils.GetDiskUsage("/")},
 	}
 
 	username := color.GreenString(utils.GetUsername()) + "@" + color.GreenString(utils.GetHostname())
