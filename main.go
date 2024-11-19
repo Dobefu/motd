@@ -72,16 +72,6 @@ func main() {
 				val = val[:limit]
 			}
 
-			valParts := strings.Split(val, ": ")
-
-			if len(valParts) > 1 {
-				val = fmt.Sprintf(
-					"%s %s",
-					color.New(color.Bold, color.FgHiBlack).Sprintf("%s:", valParts[0]),
-					valParts[1],
-				)
-			}
-
 			line += color.WhiteString(val)
 		}
 
@@ -114,7 +104,7 @@ func formatLines(lines []structs.Line) string {
 	}
 
 	for _, line := range lines {
-		output += line.Name + ":"
+		output += color.New(color.Bold, color.FgHiBlack).Sprintf("%s:", line.Name)
 		spaces := longestNameLength - len(line.Name) + 1
 
 		for spaces > 0 {
