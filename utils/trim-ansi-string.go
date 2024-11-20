@@ -15,7 +15,7 @@ func TrimAnsiString(str string, limit int) string {
 	escapeLevel := 0
 	isEscapeClosed := true
 
-	for _, char := range str {
+	for index, char := range str {
 		if char == '\x1b' {
 			escapeLevel += 1
 			output += string(char)
@@ -26,20 +26,24 @@ func TrimAnsiString(str string, limit int) string {
 		if escapeLevel > 0 && !isEscapeClosed && char == 'm' {
 			output += string(char)
 
-			if isEscapeClosed {
-				escapeLevel -= 1
+			if str[index-1] == 48 && str[index-2] == 91 {
+				// Since this ANSI escape has increased the level as well,
+				// the level should be decreased by two here.
+				escapeLevel -= 2
 			}
 
 			isEscapeClosed = true
 			continue
 		}
 
-		output += string(char)
+		if charsToAdd > 0 || !isEscapeClosed {
+			output += string(char)
+		}
 
-		if escapeLevel == 0 && isEscapeClosed {
+		if isEscapeClosed {
 			charsToAdd -= 1
 
-			if charsToAdd <= 0 {
+			if escapeLevel == 0 && charsToAdd <= 0 {
 				break
 			}
 		}
