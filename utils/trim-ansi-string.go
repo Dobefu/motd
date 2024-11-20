@@ -8,6 +8,10 @@ func TrimAnsiString(str string, limit int) string {
 	output := ""
 	charsToAdd := limit
 
+	if charsToAdd <= 0 {
+		return output
+	}
+
 	escapeLevel := 0
 	isEscapeClosed := true
 
@@ -20,8 +24,11 @@ func TrimAnsiString(str string, limit int) string {
 		}
 
 		if escapeLevel > 0 && !isEscapeClosed && char == 'm' {
-			escapeLevel -= 1
 			output += string(char)
+
+			if isEscapeClosed {
+				escapeLevel -= 1
+			}
 
 			isEscapeClosed = true
 			continue
@@ -29,7 +36,7 @@ func TrimAnsiString(str string, limit int) string {
 
 		output += string(char)
 
-		if escapeLevel == 0 {
+		if escapeLevel == 0 && isEscapeClosed {
 			charsToAdd -= 1
 
 			if charsToAdd <= 0 {
