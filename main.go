@@ -65,14 +65,13 @@ func main() {
 
 		if len(lines) > index {
 			val := lines[index]
+			line += color.WhiteString(val)
+
 			lineRaw := []rune(utils.StripAnsi(line))
 
-			if len(val) > termWidth-len(lineRaw) {
-				limit := math.MaxInt(0, (termWidth - len(lineRaw)))
-				val = val[:limit]
+			if len(lineRaw) > termWidth {
+				line = utils.TrimAnsiString(line, termWidth)
 			}
-
-			line += color.WhiteString(val)
 		}
 
 		line += "\n"
