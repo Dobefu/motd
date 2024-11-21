@@ -13,6 +13,7 @@ import (
 )
 
 func main() {
+	err := initMain()
 	parseFlags()
 
 	infoStruct := []structs.Line{
@@ -80,6 +81,16 @@ func main() {
 	}
 
 	fmt.Print(output)
+}
+
+func initMain() error {
+	term := utils.GetTerminal()
+
+	if !strings.Contains(term, "color") {
+		color.NoColor = true
+	}
+
+	return nil
 }
 
 func parseFlags() {
