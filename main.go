@@ -95,11 +95,16 @@ func initMain() error {
 
 func parseFlags() {
 	noColour := flag.Bool("no-color", false, "Disable color output")
+	forceColour := flag.Bool("color", false, "Disable color output")
 
 	flag.Parse()
 
 	if *noColour {
 		color.NoColor = true
+	}
+
+	if *forceColour {
+		color.NoColor = false
 	}
 }
 
