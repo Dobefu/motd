@@ -5,12 +5,22 @@ import (
 )
 
 func TrimAnsiString(str string, limit int) string {
-	output := ""
-	charsToAdd := limit
-
-	if charsToAdd <= 0 {
-		return output
+	if limit <= 0 {
+		return ""
 	}
+
+	output, err := strconv.Unquote(`"` + loopOverChars(str, limit) + `"`)
+
+	if err != nil {
+		return str
+	}
+
+	return output
+}
+
+func loopOverChars(str string, limit int) string {
+	charsToAdd := limit
+	output := ""
 
 	escapeLevel := 0
 	isEscapeClosed := true
@@ -47,12 +57,6 @@ func TrimAnsiString(str string, limit int) string {
 				break
 			}
 		}
-	}
-
-	output, err := strconv.Unquote(`"` + output + `"`)
-
-	if err != nil {
-		return str
 	}
 
 	return output
