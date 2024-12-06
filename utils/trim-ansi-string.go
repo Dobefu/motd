@@ -52,10 +52,6 @@ func loopOverChars(str string, limit int) string {
 
 		if isEscapeClosed {
 			charsToAdd -= 1
-
-			if escapeLevel == 0 && charsToAdd <= 0 {
-				break
-			}
 		}
 	}
 
