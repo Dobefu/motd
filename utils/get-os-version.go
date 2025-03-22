@@ -13,7 +13,7 @@ func GetOsVersion() string {
 	switch os {
 	case "darwin":
 		var stdout bytes.Buffer
-		cmd := exec.Command("sw_vers")
+		cmd := exec.Command("/usr/bin/sw_vers")
 		cmd.Stdout = &stdout
 		err := cmd.Run()
 
