@@ -5,11 +5,11 @@ import (
 )
 
 func GetCpu() string {
-	cpu_info, err := cpu.Info()
+	cpuInfo, err := cpu.Info()
 
-	if err != nil || len(cpu_info) < 1 {
+	if err != nil || len(cpuInfo) < 1 {
 		return "Unknown CPU"
 	}
 
-	return cpu_info[0].ModelName
+	return cpuInfo[0].ModelName
 }

@@ -5,11 +5,11 @@ import (
 )
 
 func GetUsername() string {
-	current_user, err := user.Current()
+	currentUser, err := user.Current()
 
 	if err != nil {
 		return "Error"
 	}
 
-	return current_user.Username
+	return currentUser.Username
 }
