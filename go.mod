@@ -4,7 +4,7 @@ go 1.23.0
 
 require (
 	github.com/fatih/color v1.18.0
-	github.com/shirou/gopsutil/v4 v4.25.2
+	github.com/shirou/gopsutil/v4 v4.25.3
 	golang.org/x/sys v0.31.0
 	golang.org/x/term v0.30.0
 )
