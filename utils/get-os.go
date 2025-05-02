@@ -1,6 +1,10 @@
 package utils
 
-import "runtime"
+import (
+	"github.com/go-ini/ini"
+	"log"
+	"runtime"
+)
 
 func GetOS() string {
 	os := runtime.GOOS
@@ -9,5 +13,13 @@ func GetOS() string {
 		return os
 	}
 
-	return "TODO"
+	cfg, err := ini.Load("/etc/os-release")
+	if err != nil {
+		log.Fatal("Fail to read file: ", err)
+	}
+
+	ConfigParams := make(map[string]string)
+	ConfigParams["ID"] = cfg.Section("").Key("ID").String()
+
+	return ConfigParams["ID"]
 }
