@@ -7,7 +7,7 @@ require (
 	github.com/go-ini/ini v1.67.0
 	github.com/shirou/gopsutil/v4 v4.25.7
 	golang.org/x/sys v0.35.0
-	golang.org/x/term v0.33.0
+	golang.org/x/term v0.34.0
 )
 
 require (
