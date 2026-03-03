@@ -5,13 +5,13 @@ go 1.25.5
 require (
 	github.com/fatih/color v1.18.0
 	github.com/go-ini/ini v1.67.0
-	github.com/shirou/gopsutil/v4 v4.26.1
+	github.com/shirou/gopsutil/v4 v4.26.2
 	golang.org/x/sys v0.41.0
 	golang.org/x/term v0.40.0
 )
 
 require (
-	github.com/ebitengine/purego v0.9.1 // indirect
+	github.com/ebitengine/purego v0.10.0 // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect
 	github.com/lufia/plan9stats v0.0.0-20251013123823-9fd1530e3ec3 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
