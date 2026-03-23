@@ -3,7 +3,7 @@ module motd
 go 1.25.5
 
 require (
-	github.com/fatih/color v1.18.0
+	github.com/fatih/color v1.19.0
 	github.com/go-ini/ini v1.67.0
 	github.com/shirou/gopsutil/v4 v4.26.2
 	golang.org/x/sys v0.42.0
