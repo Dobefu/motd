@@ -6,7 +6,7 @@ require (
 	github.com/fatih/color v1.19.0
 	github.com/go-ini/ini v1.67.0
 	github.com/shirou/gopsutil/v4 v4.26.3
-	golang.org/x/sys v0.42.0
+	golang.org/x/sys v0.43.0
 	golang.org/x/term v0.41.0
 )
 
