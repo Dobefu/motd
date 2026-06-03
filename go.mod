@@ -5,7 +5,7 @@ go 1.25.5
 require (
 	github.com/fatih/color v1.19.0
 	github.com/go-ini/ini v1.67.0
-	github.com/shirou/gopsutil/v4 v4.26.4
+	github.com/shirou/gopsutil/v4 v4.26.5
 	golang.org/x/sys v0.45.0
 	golang.org/x/term v0.43.0
 )
